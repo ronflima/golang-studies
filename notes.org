@@ -114,3 +114,47 @@ variable in Go*.
 Package-level variables are initialized before =main= begins and local
 variables are initialized as their declarations are encountered during
 function execution.
+
+** Short Variable Declaration
+
+A /short variable declaration may be used to declare and initialize
+local variables. It takes the form ~name := expression~ and the type
+of =name= is determined by the type of the =expression=.
+
+*Important*
+
+~:=~ is a /declaration/ while ~=~ is an assignment.
+
+A short variable declaration does not necessarily /declare/ all the
+variables on its left-hand side. If some of them were already declared
+in the same lexical block, then the short variable declaration acts
+like an assignment to thos variables.
+
+Example:
+
+#+begin_src go
+  in, err := os.Open(infile)
+  // ...
+  out, err := os.Create(outfile)
+#+end_src
+
+In this example, =err= is declared only at the first line.
+
+A short variable declaration must declare at least one new
+variable. For example, the code below does not compile at all:
+
+#+begin_src go
+  f, err := os.Open(infile)
+  f, err := os.Create(outfile)
+#+end_src
+
+The second line will not declare anything new and, thus, the compiler
+will issue an error.
+
+* Pointers
+
+Like C, a pointer is the addres of a variable. Not every value has an
+address, but every variable does.
+
+If a variable is declared ~var x int~, the expression ~&x~ yields a
+pointer to an integer variable.
