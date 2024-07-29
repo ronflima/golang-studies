@@ -1,0 +1,116 @@
+# -*-mode:org-*-
+#
+# (c)2024 - Brazuca Studio - All rights reserved
+# Created at 2024-07-29
+# Author: Ronaldo Faria Lima<ronaldo@brazuca.dev>
+# Purpose: My Go lang notes about "Go Programming Language" book from Brian Khernighan
+#+OPTIONS: ^:{}
+
+* Names
+
+Go have 25 keywords which can't be used as names. They must be used
+only where the syntax permits. They are:
+
+- break
+- case
+- chan
+- const
+- continue
+- default
+- defer
+- else
+- fallthrough
+- for
+- func
+- go
+- goto
+- if
+- import
+- interface
+- map
+- package
+- range
+- return
+- select
+- struct
+- switch
+- type
+- var
+
+In addition to the keywords, there are several predeclared names for
+built-in constants, types and functions.
+
+A *name* begins with a letter or an underscore and may have any number
+of additional letter, digits and underscores.
+
+** Scope
+
+If an entity is declared within a function, it is /local/ to that
+function. If declared outside of a function, however, it is visible in
+all files of the package to which it belongs.If the name begins with
+an upper-case letter, it is /exported/, which means that it is visible
+and accessible outside its own package.
+
+A simple rule: *the larger the scope of a name, the longer and more
+meaningful it should be*.
+
+** Go Practices
+
+In terms of style, go programmers use "camel case" when forming names
+by combining words. Letters of acronyms and initialisms like ASCII and
+HTML are always rendered in the same case. For example:
+
+#+begin_src go
+  escapeHTML
+#+end_src
+
+* Declarations
+
+A /declaration/ names a program entity and specifies some or all of
+its properties. There are four major kinds of declarations:
+
+- =var=, for variables
+- =const=, for constants
+- =type=, for custom data types
+- =func=, for methods and functions
+
+** Go program structure
+
+A typical go program follows this structure:
+
+- Package declaration
+- Import declaration
+- A sequence of /package-level/ declarations of types, variables,
+  constants and functions in any order.
+
+Example:
+#+begin_src go
+  package main
+
+  import "fmt"
+
+  const boilingF = 212.0
+
+  func main() {
+      var f = boilingF
+      var c = (f - 32) * 5 / 9
+      fmt.Printf("Boiling point = %gF or 100C\n", f, c)
+  }
+#+end_src
+
+
+The constant =boilingF= is a package-level declaration. The name of
+each package-level entity is visible not only throuhgout the source
+file that contains its declaration, but throughout all the files of
+the package.
+
+
+* Variables
+
+Go guarantees that a variable is properly initialized to the default
+value of its type. *There is no such thing as an uninintialized
+variable in Go*.
+
+Package-level variables are initialized before =main= begins and local
+variables are initialized as their declarations are encountered during
+function execution.
